@@ -10,6 +10,7 @@ import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -49,6 +50,8 @@ public class ChatActivity extends AppCompatActivity {
     TextToSpeech textToSpeech;
     private static final int REQUEST_CODE_SPEECH_INPUT = 1000;
     private static final int REQUEST_CODE_PERMISSION = 12000;
+    ImageButton btnVoice;
+    boolean isVoice = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +108,7 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        btnVoice = findViewById(R.id.btnSound);
         btn_send = findViewById(R.id.btn_send);
         edt_content = findViewById(R.id.edt_content);
         recyclerView = findViewById(R.id.lv_chat);
@@ -147,6 +151,18 @@ public class ChatActivity extends AppCompatActivity {
                 startSpeechToText();
             }
         });
+        btnVoice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isVoice) {
+                    btnVoice.setImageResource(R.drawable.mute);
+                    isVoice = false;
+                } else {
+                    btnVoice.setImageResource(R.drawable.volume);
+                    isVoice = true;
+                }
+            }
+        });
     }
 
     private void generateText(String value) {
@@ -160,7 +176,9 @@ public class ChatActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(GenerateContentResponse result) {
                     String resultText = result.getText();
-                    textToSpeech.speak(resultText, TextToSpeech.QUEUE_FLUSH, null);
+                    if (isVoice) {
+                        textToSpeech.speak(resultText, TextToSpeech.QUEUE_FLUSH, null);
+                    }
                     chatList.add(new ChatContent("2", "1", resultText));
                     chatAdapter.notifyDataSetChanged();
                 }
