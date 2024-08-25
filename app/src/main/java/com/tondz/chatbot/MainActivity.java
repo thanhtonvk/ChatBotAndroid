@@ -77,6 +77,12 @@ public class MainActivity extends AppCompatActivity {
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     i.setData(Uri.parse(url));
                     startActivity(i);
+
+//
+//                    Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.package.address");
+//                    if (launchIntent != null) {
+//                        startActivity(launchIntent);//null pointer check in case package name was not found
+//                    }
                 }
 
             }
