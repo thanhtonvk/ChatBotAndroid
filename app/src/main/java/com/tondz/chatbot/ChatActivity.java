@@ -51,7 +51,7 @@ public class ChatActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_SPEECH_INPUT = 1000;
     private static final int REQUEST_CODE_PERMISSION = 12000;
     ImageButton btnVoice;
-    boolean isVoice = true;
+    boolean isVoice = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
