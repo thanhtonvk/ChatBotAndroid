@@ -35,6 +35,10 @@ import com.google.common.util.concurrent.ListenableFuture;
 import com.tondz.chatbot.adapters.ChatAdapter;
 import com.tondz.chatbot.models.ChatContent;
 
+import org.commonmark.node.Node;
+import org.commonmark.parser.Parser;
+import org.commonmark.renderer.text.TextContentRenderer;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -176,8 +180,13 @@ public class ChatActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(GenerateContentResponse result) {
                     String resultText = result.getText();
+
                     if (isVoice) {
-                        textToSpeech.speak(resultText, TextToSpeech.QUEUE_FLUSH, null);
+                        Parser parser = Parser.builder().build();
+                        Node document = parser.parse(resultText);
+                        TextContentRenderer renderer = TextContentRenderer.builder().build();
+                        String plainText = renderer.render(document);
+                        textToSpeech.speak(plainText, TextToSpeech.QUEUE_FLUSH, null);
                     }
                     chatList.add(new ChatContent("2", "1", resultText));
                     chatAdapter.notifyDataSetChanged();

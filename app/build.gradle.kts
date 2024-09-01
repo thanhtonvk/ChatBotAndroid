@@ -46,4 +46,5 @@ dependencies {
     implementation("com.google.guava:guava:31.0.1-android")
     implementation("org.reactivestreams:reactive-streams:1.0.4")
     implementation("io.noties.markwon:core:4.6.2")
+    implementation("org.commonmark:commonmark:0.18.2")
 }
