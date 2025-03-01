@@ -30,6 +30,9 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        viewBinding = true;
+    }
 }
 
 dependencies {
@@ -46,4 +49,14 @@ dependencies {
     implementation("com.google.guava:guava:31.0.1-android")
     implementation("org.reactivestreams:reactive-streams:1.0.4")
     implementation("io.noties.markwon:core:4.6.2")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("ru.noties:jlatexmath-android:0.2.0")
+
+// for Cyrillic symbols
+    implementation("ru.noties:jlatexmath-android-font-cyrillic:0.2.0")
+
+// for Greek symbols 
+    implementation("ru.noties:jlatexmath-android-font-greek:0.2.0")
+
 }

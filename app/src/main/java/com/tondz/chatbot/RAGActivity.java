@@ -7,34 +7,42 @@ import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.tondz.chatbot.adapters.ChatAdapter;
 import com.tondz.chatbot.models.ChatContent;
 import com.tondz.chatbot.models.ChatRequest;
 import com.tondz.chatbot.models.ChatResponse;
 import com.tondz.chatbot.services.ApiService;
 import com.tondz.chatbot.services.RetrofitClient;
+
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.text.TextContentRenderer;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ChatActivity extends AppCompatActivity {
+public class RAGActivity extends AppCompatActivity {
     private final List<ChatContent> chatList = new ArrayList<>();
     private ChatAdapter chatAdapter;
     private EditText edt_content;
@@ -47,7 +55,7 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat);
+        setContentView(R.layout.activity_ragactivity);
         initView();
         requestAudioPermission();
     }
@@ -111,7 +119,7 @@ public class ChatActivity extends AppCompatActivity {
         chatAdapter.notifyDataSetChanged();
         edt_content.setText("");
 
-        apiService.sendMessage(new ChatRequest(message, false)).enqueue(new Callback<ChatResponse>() {
+        apiService.sendMessage(new ChatRequest(message, true)).enqueue(new Callback<ChatResponse>() {
             @Override
             public void onResponse(Call<ChatResponse> call, Response<ChatResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {

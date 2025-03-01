@@ -10,12 +10,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.tondz.chatbot.LatexPlugin;
 import com.tondz.chatbot.R;
 import com.tondz.chatbot.models.ChatContent;
 
 import java.util.List;
 
 import io.noties.markwon.Markwon;
+import io.noties.markwon.MarkwonPlugin;
+import ru.noties.jlatexmath.JLatexMathDrawable;
+import ru.noties.jlatexmath.JLatexMathView;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     private static final int MSG_LEFT = 319;
@@ -27,7 +31,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     public ChatAdapter(Context context, List<ChatContent> list) {
         this.context = context;
         this.list = list;
-        markwon = Markwon.create(context);
+        markwon = Markwon.builder(context)
+                .usePlugin(new LatexPlugin()) // Đăng ký plugin hỗ trợ LaTeX
+                .build();
     }
 
     @NonNull
@@ -48,7 +54,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ChatContent content = list.get(position);
-
         markwon.setMarkdown(holder.tv_message, content.getMessage());
 
     }

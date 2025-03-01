@@ -31,87 +31,16 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.concurrent.Executor;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String PASSWORD = "12345";
-    boolean isPass = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference reference = database.getReference();
-        reference.child("pass").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.getValue().toString().equals(PASSWORD)) {
-                    isPass = true;
-                } else {
-                    Toast.makeText(getApplicationContext(), "Đã hết thời gian dùng thử ", Toast.LENGTH_SHORT).show();
-                    finish();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                finish();
-            }
+        findViewById(R.id.btnMoWeb1).setOnClickListener(view -> {
+            startActivity(new Intent(getApplicationContext(), ChatActivity.class));
         });
-
-
-        findViewById(R.id.btnChat).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isPass) {
-                    startActivity(new Intent(getApplicationContext(), ChatActivity.class));
-                }
-
-            }
-        });
-        findViewById(R.id.btnMoWeb1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isPass) {
-                    String url = "http://www.gobloggerslive.com";
-
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(url));
-                    startActivity(i);
-
-//
-//                    Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.package.address");
-//                    if (launchIntent != null) {
-//                        startActivity(launchIntent);//null pointer check in case package name was not found
-//                    }
-                }
-
-            }
-        });
-        findViewById(R.id.btnMoWeb2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isPass) {
-                    String url = "http://www.gobloggerslive.com";
-
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(url));
-                    startActivity(i);
-                }
-
-            }
-        });
-        findViewById(R.id.btnMoWeb3).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isPass) {
-                    String url = "http://www.gobloggerslive.com";
-
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(url));
-                    startActivity(i);
-                }
-
-            }
+        findViewById(R.id.btnChat).setOnClickListener(view -> {
+            startActivity(new Intent(getApplicationContext(), RAGActivity.class));
         });
     }
 

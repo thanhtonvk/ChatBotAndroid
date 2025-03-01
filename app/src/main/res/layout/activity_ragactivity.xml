@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#121212"
-    tools:context=".ChatActivity">
+    tools:context=".RAGActivity">
 
     <TextView
         android:id="@+id/tvTitle"
@@ -15,7 +15,7 @@
         android:background="#2D2D2D"
         android:gravity="center"
         android:padding="10dp"
-        android:text="TRỢ LÝ ẢO THÔNG MINH"
+        android:text="TỪ ĐIỂN THÔNG MINH"
         android:textColor="@color/white" />
 
     <ImageButton
